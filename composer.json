@@ -22,5 +22,8 @@
             "de-DE": "Console Commands für Shopware 6",
             "en-GB": "Console Commands for Shopware 6"
         }
+    },
+    "require": {
+        "shopware/core": "^6.0"
     }
 }
