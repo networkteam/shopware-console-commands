@@ -1,0 +1,26 @@
+{
+    "name": "networkteam/shopware-console-commands",
+    "description": "Console Commands for Shopware 6",
+    "type": "shopware-platform-plugin",
+    "authors": [
+        {
+            "name": "networkteam GmbH"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Networkteam\\ConsoleCommands\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "Networkteam\\ConsoleCommands\\NetworkteamConsoleCommands",
+        "label": {
+            "de-DE": "Console commands",
+            "en-GB": "Console commands"
+        },
+        "description": {
+            "de-DE": "Console Commands für Shopware 6",
+            "en-GB": "Console Commands for Shopware 6"
+        }
+    }
+}
