@@ -5,7 +5,7 @@ Should ease plugin updates.
 ## Install, activate and update all plugins
 
 ```shell
-./bin/console networkteam:plugin:updateall
+./bin/console networkteam:plugin:updateall --clear-cache
 ```
 
 ## Plugin List with additional options
