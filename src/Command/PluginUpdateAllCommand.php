@@ -34,7 +34,8 @@ class PluginUpdateAllCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setDescription('Update all plugins (and install + activate');
+            ->setDescription('Update all plugins (and install + activate')
+            ->addOption('clear-cache', null, InputOption::VALUE_NONE, 'Clear cache, given something changes');
     }
 
     /**
@@ -45,6 +46,7 @@ class PluginUpdateAllCommand extends Command
         /** @var PluginCollection $plugins */
         $plugins = $this->pluginRepo->search(new Criteria(), Context::createDefaultContext())->getEntities();
 
+        $clearCache = false;
         foreach ($plugins as $plugin) {
             if (!$plugin->getInstalledAt()) {
                 $output->writeln('Install plugin ' . $plugin->getName());
@@ -52,6 +54,7 @@ class PluginUpdateAllCommand extends Command
                 $command->run(
                     new ArrayInput(['plugins' => [$plugin->getName()]]),
                     $output);
+                $clearCache = true;
             }
         }
         foreach ($plugins as $plugin) {
@@ -61,6 +64,7 @@ class PluginUpdateAllCommand extends Command
                 $command->run(
                     new ArrayInput(['plugins' => [$plugin->getName()]]),
                     $output);
+                $clearCache = true;
             }
         }
         foreach ($plugins as $plugin) {
@@ -70,7 +74,13 @@ class PluginUpdateAllCommand extends Command
                 $command->run(
                     new ArrayInput(['plugins' => [$plugin->getName()]]),
                     $output);
+                $clearCache = true;
             }
+        }
+
+        if ($input->getOption('clear-cache') && $clearCache) {
+            $command = $this->getApplication()->find('cache:clear');
+            $command->run(new ArrayInput([]), $output);
         }
 
         return self::SUCCESS;
